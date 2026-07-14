@@ -83,7 +83,7 @@ body{font-family:var(--sm);background:var(--black);color:var(--white);overflow-x
 }
 @keyframes sketchFloat{
   0%,100%{transform:translateY(-52%) translateX(0);opacity:.08;}
-  35%{transform:translateY(-49%) translateX(10px);opacity:.10;}
+  0%{transform:translateY(-49%) translateX(10px);opacity:.10;}
   70%{transform:translateY(-55%) translateX(-6px);opacity:.07;}
 }
 .hero-glow{
@@ -886,7 +886,7 @@ window.addEventListener('scroll',()=>{
 const progObs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
-      setTimeout(()=>{document.getElementById('prog').style.width='35%';},300);
+      setTimeout(()=>{document.getElementById('prog').style.width='0%';},300);
       progObs.unobserve(e.target);
     }
   });
