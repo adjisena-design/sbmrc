@@ -388,7 +388,7 @@ h1.hero-title .grad{
 .cw-r{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--azure);line-height:1.5}
 .plogos{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--line);
   border:1px solid var(--line);border-radius:20px;overflow:hidden}
-.pl-cell{background:#fff;aspect-ratio:5/2;display:flex;align-items:center;justify-content:center;
+.pl-cell{background:#fff;aspect-ratio:5/2;min-width:0;display:flex;align-items:center;justify-content:center;
   padding:22px;transition:background .25s;box-shadow:inset -1px -1px 0 var(--line)}
 .pl-cell:hover{background:var(--soft)}
 .pl-cell .lg{width:100%;height:44px}
@@ -419,63 +419,6 @@ footer{background:var(--ink);color:#fff;padding:56px var(--pad) 34px}
 .d4{transition-delay:.32s}.d5{transition-delay:.4s}.d6{transition-delay:.48s}
 
 /* ─────────── responsive ─────────── */
-@media(max-width:1480px){
-  .nav-right .lg,.nav-sep{display:none}
-  .nav-in{gap:12px}
-  .nav-links a{padding:8px 10px;font-size:13px}
-}
-@media(max-width:1100px){
-  .nav-links{display:none}
-  .burger{display:block}
-  .nav-right .lg,.nav-sep{display:none}
-  .nav-right{gap:10px}
-  .hero-copy{max-width:none}
-  .hs-bg{aspect-ratio:auto;top:0;height:100%;width:100%;margin-top:0;transform:none;
-    background-size:215% auto;background-position:56% 68%;-webkit-mask-image:none;mask-image:none}
-  .hs-scrim{background:linear-gradient(180deg,#fff 0%,rgba(255,255,255,.88) 34%,rgba(255,255,255,.62) 68%,rgba(255,255,255,.3) 100%)}
-  .about-grid,.dana-grid{grid-template-columns:1fr}
-  .plogos{grid-template-columns:repeat(2,1fr)}
-  .merch-grid{grid-template-columns:repeat(2,1fr)}
-  .route-scroll{height:280vh}
-}
-@media(max-width:700px){
-  .nav-sep-brand,.nav-ultra{display:none}
-}
-@media(max-width:560px){
-  .nav-right > .btn-primary{display:none}
-  .hs-bg{background-size:280% auto;background-position:56% 66%}
-  .nav-brand .lg-wm{width:104px;height:14px}
-  .nav-year{display:none}
-  .nav-in{height:64px;gap:10px}
-  #mobnav{inset:64px 0 0}
-  .langsw button{padding:5px 9px;font-size:11px}
-}
-@media(max-width:760px){
-  .pulse-grid{grid-template-columns:repeat(2,1fr)}
-  .cd-grid{grid-template-columns:repeat(2,1fr)}
-  .nr-grid,.merch-grid{grid-template-columns:1fr}
-  .team-hd{grid-template-columns:52px 1fr auto;gap:14px}
-  .team-cat{width:58px;height:58px;border-radius:14px}
-  .team-cat b{font-size:17px}
-  .team-leg{display:none}
-  .team-inner{grid-template-columns:1fr}
-  .team-photo{border-right:none;border-bottom:1px solid var(--line);align-items:center}
-  .team-photo img{max-width:320px}
-  .route-readout{grid-template-columns:repeat(2,1fr);gap:20px}
-  .dana-split{grid-template-columns:1fr}
-  .route-scroll{height:220vh}
-  .f-top{flex-direction:column}
-}
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
-  html{scroll-behavior:auto}
-  h1.hero-title .ln > span{transform:none;opacity:1}
-  .hero-sub,.hero-btns,.scrollcue{opacity:1}
-  .hs-bg{opacity:.5}
-  .rv{opacity:1;transform:none}
-  .hrc-path{stroke-dashoffset:0}
-  .hrc-runner{opacity:1}
-}
 
 /* language switch */
 .langsw{display:flex;background:var(--soft);border:1px solid var(--line);border-radius:100px;padding:3px;gap:2px}
@@ -651,6 +594,88 @@ body.swapping [data-t]{opacity:.25}
 .pl-cell .lg-ftgg{height:54px}
 .f-brand .lg-ic{width:35px;height:34px;filter:brightness(0) invert(1);opacity:.92}
 .f-brand .lg-wm{width:136px;height:18px;margin-top:12px;filter:brightness(0) invert(1);opacity:.9}
+@media(max-width:1480px){
+  .nav-right .lg,.nav-sep{display:none}
+  .nav-in{gap:12px}
+  .nav-links a{padding:8px 10px;font-size:13px}
+}
+@media(max-width:1100px){
+  .nav-links{display:none}
+  .burger{display:block}
+  .nav-right .lg,.nav-sep{display:none}
+  .nav-right{gap:10px}
+  .hero-copy{max-width:none}
+  .hs-bg{aspect-ratio:auto;top:0;height:100%;width:100%;margin-top:0;transform:none;
+    background-size:215% auto;background-position:56% 68%;-webkit-mask-image:none;mask-image:none}
+  .hs-scrim{background:linear-gradient(180deg,#fff 0%,rgba(255,255,255,.88) 34%,rgba(255,255,255,.62) 68%,rgba(255,255,255,.3) 100%)}
+  .about-grid,.dana-grid{grid-template-columns:1fr}
+  .plogos{grid-template-columns:repeat(2,1fr)}
+  .merch-grid{grid-template-columns:repeat(2,1fr)}
+  .route-scroll{height:280vh}
+}
+@media(max-width:700px){
+  .nav-sep-brand,.nav-ultra{display:none}
+}
+@media(max-width:560px){
+  /* aspect-ratio also derives WIDTH from height: once the open-slot label
+     wrapped, the ratio forced the cells wider than the screen. Height-driven
+     sizing instead, so the grid track alone decides the width. */
+  .plogos{grid-template-columns:repeat(2,1fr)}
+  .pl-cell{aspect-ratio:auto;min-height:98px;padding:14px 16px}
+  .pl-cell .lg{height:38px}
+  .pl-cell .lg-ftgg{height:46px}
+  .pl-cell .lg-ultra{height:44px}
+  .pl-cell .lg-sbm{height:40px}
+  .pl-open b{font-size:11.5px}
+  .pl-open s{font-size:8.5px;letter-spacing:.07em}
+  .nav-right > .btn-primary{display:none}
+  .hs-bg{background-size:280% auto;background-position:56% 66%}
+  .nav-brand .lg-wm{width:104px;height:14px}
+  .nav-year{display:none}
+  .nav-in{height:64px;gap:10px}
+  #mobnav{inset:64px 0 0}
+  .langsw button{padding:5px 9px;font-size:11px}
+}
+@media(max-width:760px){
+  .pulse-grid{grid-template-columns:repeat(2,1fr)}
+  .cd-grid{grid-template-columns:repeat(2,1fr)}
+  .nr-grid,.merch-grid{grid-template-columns:1fr}
+  .team-hd{grid-template-columns:52px 1fr auto;gap:14px}
+  .team-cat{width:58px;height:58px;border-radius:14px}
+  .team-cat b{font-size:17px}
+  .team-leg{display:none}
+  .team-inner{grid-template-columns:1fr}
+  .team-photo{border-right:none;border-bottom:1px solid var(--line);align-items:center}
+  .team-photo img{max-width:320px}
+  .route-readout{grid-template-columns:repeat(2,1fr);gap:20px}
+  .dana-split{grid-template-columns:1fr}
+  .route-scroll{height:220vh}
+  .f-top{flex-direction:column}
+}
+@media(max-width:380px){
+  .nav-in{padding:0 14px;gap:8px;height:60px}
+  #mobnav{inset:60px 0 0}
+  .nav-brand{gap:7px}
+  .nav-brand .lg-ic{width:26px;height:25px}
+  .nav-brand .lg-wm{width:84px;height:11px}
+  .langsw button{padding:5px 8px;font-size:10.5px}
+  .burger{width:38px;height:38px}
+  .burger span{left:9px;width:20px}
+  .burger span:nth-child(1){top:13px}
+  .burger span:nth-child(2){top:18.5px}
+  .burger span:nth-child(3){top:24px}
+  .burger.open span:nth-child(1),.burger.open span:nth-child(3){top:18.5px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  html{scroll-behavior:auto}
+  h1.hero-title .ln > span{transform:none;opacity:1}
+  .hero-sub,.hero-btns,.scrollcue{opacity:1}
+  .hs-bg{opacity:.5}
+  .rv{opacity:1;transform:none}
+  .hrc-path{stroke-dashoffset:0}
+  .hrc-runner{opacity:1}
+}
 </style>
 <noscript><style>
 .rv{opacity:1;transform:none}
