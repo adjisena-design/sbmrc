@@ -1337,9 +1337,11 @@ const SBMRC = {
 
   /* ---- Dana Lestari counter ---------------------------------- */
   danaLestari: {
-    raised:      1632000,          // total raised, in rupiah (donations + merch cut combined)
+    raised:      2932000,          // the figure shown if the live one can't be read
+    offline:     1632000,          // merch cut + anything NOT on the campaign page
+    liveUrl:     "/api/dana",       // live donations; set to "" to switch it off
     target:      200000000,        // the goal
-    lastUpdated: "9 September 2026",   // shown under the counter
+    lastUpdated: "4 Oktober 2026",   // shown under the counter
     deadline:    "20 Oktober 2026"       // campaign deadline shown in the card
   },
 
@@ -1437,7 +1439,8 @@ const RACE=new Date(SBMRC.raceStart).getTime(); let prev={};
 })();
 
 /* ─── dana lestari ────────────────────────────────────── */
-const DL=SBMRC.danaLestari, PCT=clamp(DL.raised/DL.target*100,0,100);
+const DL=SBMRC.danaLestari;
+let PCT=clamp(DL.raised/DL.target*100,0,100);
 let danaShown=false;
 function paintDana(){
   $('#danaTarget').textContent=rp(DL.target);
@@ -1459,6 +1462,27 @@ function paintDana(){
       if(p<1)requestAnimationFrame(step); else amt.textContent=rp(DL.raised);
     })(t0);
   }),{threshold:.35}).observe($('#dana'));
+})();
+
+/* ─── live donations from the ITB campaign page ───────── */
+(function(){
+  /* the ITB site sends no CORS header, so the browser cannot read it directly.
+     /api/dana does the read server-side and returns just the number. If that
+     endpoint is missing or the page has changed shape, we keep DL.raised. */
+  if(!DL.liveUrl) return;
+  fetch(DL.liveUrl,{cache:'no-store'})
+    .then(r=>r.ok?r.json():null)
+    .then(d=>{
+      const n=d&&Number(d.donations);
+      if(!isFinite(n)||n<=0) return;
+      const total=Math.round(n+(DL.offline||0));
+      if(total===DL.raised) return;
+      DL.raised=total;
+      PCT=clamp(DL.raised/DL.target*100,0,100);
+      const bar=$('#danaBar'); if(danaShown&&bar) bar.style.width=Math.max(PCT,.8)+'%';
+      paintDana();
+    })
+    .catch(()=>{});
 })();
 
 /* ─── merch order link ────────────────────────────────── */
