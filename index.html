@@ -1338,8 +1338,8 @@ const SBMRC = {
   /* ---- Dana Lestari counter ---------------------------------- */
   danaLestari: {
     raised:      2932000,          // the figure shown if the live one can't be read
-    offline:     1632000,          // merch cut + anything NOT on the campaign page
-    liveUrl:     "/api/dana",       // live donations; set to "" to switch it off
+    offline:     0,                // gifts that reach NEITHER campaign page
+    liveUrl:     "/api/dana",       // reads both pages; set to "" to switch it off
     target:      200000000,        // the goal
     lastUpdated: "4 Oktober 2026",   // shown under the counter
     deadline:    "20 Oktober 2026"       // campaign deadline shown in the card
